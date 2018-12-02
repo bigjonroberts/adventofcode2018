@@ -1,0 +1,3 @@
+source https://api.nuget.org/v3/index.json
+nuget FastCollections 0.2.3
+nuget System.Collections.Immutable 1.5.0
