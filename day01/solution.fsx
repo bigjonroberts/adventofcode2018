@@ -49,7 +49,7 @@ let solvePart2 changes =
         |> Seq.tail // ignore 0 at start
         |> Seq.toArray // convert to array for performance reasons
     let sumSet = Set.ofArray cumulativeSum
-    let  = Array.last cumulativeSum // the final element will be the resulting sum
+    let finalSum = Array.last cumulativeSum // the final element will be the resulting sum
     let rec iterate sums =
         let newSums = (Array.map ((+) finalSum) sums)
         let firstMatch = Array.tryFind (fun i -> Set.contains i sumSet) newSums

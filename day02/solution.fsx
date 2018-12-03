@@ -7,9 +7,7 @@ open System
 let hasGroup i (s:String) =
   s |> Seq.sort
   |> Seq.countBy id
-  |> Seq.filter (fun x -> (snd x) = i)
-  |> Seq.isEmpty
-  |> not
+  |> Seq.exists (fun x -> (snd x) = i)
   |> function | true -> 1 | false -> 0
 
 let getPart1CheckSum (s:seq<string>) =
@@ -35,16 +33,17 @@ let input = System.IO.File.ReadLines "c:/work/adventofcode2018/day02/input.txt"
 input |> getPart1CheckSum |> printfn "Part 1: %i"
 
 let findPart2matches (s:seq<string>) = 
-  let isMatch a b =
+  let compMembers f a b =
     Seq.zip a b
-    |> Seq.filter (fun (x,y) -> x <> y)
+    |> Seq.filter (fun (x,y) -> f x y)
+  let isMatch a b =
+    compMembers (<>) a b
     |> Seq.length
     |> (=) 1
   let commonLetters a b =
     match isMatch a b with
       | true -> 
-        Seq.zip a b
-        |> Seq.filter (fun (x,y) -> x = y)
+        compMembers (=) a b
         |> Seq.map (fst >> string)
         |> String.concat ""
         |> Some
